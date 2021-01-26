@@ -141,11 +141,6 @@ class Game:
                 print ('ura')
 
 
-
-
-
-
-
 card_user = Card(input('Введите ваше имя '))
 card_comp = Card('Компьютер')
 game = Game(card_user, card_comp)

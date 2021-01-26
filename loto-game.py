@@ -67,7 +67,7 @@ class Card:
         self.__row_90 = [element for element in range(1, 91)]
         self.card_row = [[], [], []]
         self.generate_card()
-        self.__name = name
+        self.__name = name if len(name) else 'Vasyula'
 
     def more_spaces(self, line_one, line_two, line_three):
         while line_one.count(' ') < 4:
@@ -119,17 +119,34 @@ class Card:
 
 class Game:
     def __init__(self, cls_one, cls_two):
-        self.line_of_ln = cls_one
-        self.line_of_ln_2 = cls_two
+        self.gamer_one = cls_one
+        self.gamer_two = cls_two
+        self.__barrel = []
+        self.generate_barrel()
+        self.start_game()
+
+
+    def generate_barrel(self):
         self.__barrel = [element for element in range (1, 91)]
+        shuffle(self.__barrel)
+
+    def start_game(self):
+        for count in range(len(self.__barrel)):
+            small_barrel = self.__barrel.pop()
+            print (f'Новый бочонок: {small_barrel} осталось {len(self.__barrel)}')
+            print (self.gamer_one)
+            print (self.gamer_two)
+            answer_user = input('Зачеркнуть цифру? (y/n)').lower()
+            if (answer_user == 'y') and (small_barrel in self.gamer_one.card_row):
+                print ('ura')
 
 
-    pass
 
 
 
 
-card_user = Card('Андрей')
+
+card_user = Card(input('Введите ваше имя '))
 card_comp = Card('Компьютер')
 game = Game(card_user, card_comp)
 

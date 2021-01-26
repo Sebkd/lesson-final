@@ -117,8 +117,21 @@ class Card:
         show_view += '--------------------------' + '\n'
         return show_view
 
+class Game:
+    def __init__(self, cls_one, cls_two):
+        self.line_of_ln = cls_one
+        self.line_of_ln_2 = cls_two
+        self.__barrel = [element for element in range (1, 91)]
+
+
+    pass
+
+
+
 
 card_user = Card('Андрей')
 card_comp = Card('Компьютер')
-print(card_user)
-print(card_comp)
+game = Game(card_user, card_comp)
+
+
+

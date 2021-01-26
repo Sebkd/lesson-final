@@ -62,54 +62,63 @@ from random import randint, shuffle
 12 нулей в списке списков, по 4 в списке, при этом 3 нуля с одинаковым индексом не допусается, и в списках 
 на одном индексе должен быть хоть один ноль
 '''
+class Card:
+    def __init__(self, name):
+        self.__row_90 = [element for element in range(1, 91)]
+        self.card_row = [[], [], []]
+        self.generate_card()
+        self.__name = name
 
-row_90 = [element for element in range(1, 91)]
-card_row = [[], [], []]
-for element in range(0, 63, 7):
-    (card_row[0]).append(row_90.pop(randint(element, (element + 9) if element < 53 else (element + 9))))
-    (card_row[1]).append(row_90.pop(randint(element, (element + 8) if element < 53 else (element + 8))))
-    (card_row[2]).append(row_90.pop(randint(element, (element + 7) if element < 53 else (element + 7))))
-
-for count in range(9):
-    '''
-    раскидываем первые 9 пробелов рандомно по рядам
-    '''
-    rand_number = randint(1, 3)
-    if (rand_number == 1 and (card_row[0]).count(' ') < 4):
-        (card_row[0])[count] = ' '
-    elif (rand_number == 2 and (card_row[1]).count(' ') < 4):
-        (card_row[1])[count] = ' '
-    elif (rand_number == 3 and (card_row[2]).count(' ') < 4):
-        (card_row[2])[count] = ' '
-'''
-Добиваем чтобы в каждом ряду было не менее 4 пробела, с условием чтобы не было рядом три пробела сверху-вниз
-'''
-def more_spaces (line_one, line_two, line_three):
-    while line_one.count (' ') < 4:
-        rand_number = randint (0, 8)
-        if (line_two[rand_number] == ' ' and line_three[rand_number] == ' '):
-            continue
-        else:
-            line_one[rand_number] = ' '
-    return line_one
-'''
-функция выдачи на экран
-'''
-def show_card (array_of_line):
-    show_view = '--------------------------' + '\n'
-    for line in array_of_line:
-        answer = ''
-        for element in line:
-            if len(str(element)) == 2:
-                answer += ''.join(str(element)) + ' '
+    def more_spaces(self, line_one, line_two, line_three):
+        while line_one.count(' ') < 4:
+            rand_number = randint (0, 8)
+            if (line_two[rand_number] == ' ' and line_three[rand_number] == ' '):
+                continue
             else:
-                answer += ' ' + ''.join(str(element)) + ' '
-        show_view += answer + '\n'
-    show_view += '--------------------------' + '\n'
-    return show_view
+                line_one[rand_number] = ' '
+        return line_one
 
-for count in range(3):
-    more_spaces(card_row[count], card_row[(count - 2) if count == 2 else (count + 1)],
-                card_row[(count + 2) if count == 0 else (count - 1)])
+    def generate_card(self):
+        for element in range (0, 63, 7):
+            (self.card_row[0]).append (self.__row_90.pop (randint (element, (element + 9) if element < 53
+            else (element + 9))))
+            (self.card_row[1]).append (self.__row_90.pop (randint (element, (element + 8) if element < 53
+            else (element + 8))))
+            (self.card_row[2]).append (self.__row_90.pop (randint (element, (element + 7) if element < 53
+            else (element + 7))))
+        '''
+        раскидываем первые 9 пробелов рандомно по рядам
+        '''
+        for count in range (9):
+            rand_number = randint (1, 3)
+            if (rand_number == 1 and (self.card_row[0]).count (' ') < 4):
+                (self.card_row[0])[count] = ' '
+            elif (rand_number == 2 and (self.card_row[1]).count (' ') < 4):
+                (self.card_row[1])[count] = ' '
+            elif (rand_number == 3 and (self.card_row[2]).count (' ') < 4):
+                (self.card_row[2])[count] = ' '
+        '''
+        Добиваем чтобы в каждом ряду было не менее 4 пробела, с условием чтобы не было рядом три пробела сверху-вниз
+        '''
+        for count in range (3):
+            self.more_spaces (self.card_row[count], self.card_row[(count - 2) if count == 2 else (count + 1)],
+                              self.card_row[(count + 2) if count == 0 else (count - 1)])
 
-print(show_card(card_row))
+    def __str__(self):
+        show_view = '-Карточка игрока ' + self.__name + '--' + '\n'
+        for line in self.card_row:
+            answer = ''
+            for element in line:
+                if len (str (element)) == 2:
+                    answer += ''.join (str (element)) + ' '
+                else:
+                    answer += ' ' + ''.join (str (element)) + ' '
+            show_view += answer + '\n'
+        show_view += '--------------------------' + '\n'
+        return show_view
+
+
+card_user = Card('Андрей')
+card_comp = Card('Компьютер')
+print(card_user)
+print(card_comp)

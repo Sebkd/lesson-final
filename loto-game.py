@@ -152,7 +152,7 @@ class Game:
     def generate_barrel(self):
         self.__barrel = [element for element in range(1, 91)]
         shuffle(self.__barrel)
-       
+
     def start_game(self):
 
         for count in range(len(self.__barrel)):
@@ -184,3 +184,4 @@ while True:
     if input('Готовы начинать? ').lower() == 'y':
         game.start_game()
     sleep(10)
+

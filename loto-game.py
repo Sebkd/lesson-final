@@ -69,6 +69,7 @@ class Card:
         self.generate_card()
         self.__name = name if len(name) else 'Vasyula'
 
+
     def more_spaces(self, line_one, line_two, line_three):
         while line_one.count(' ') < 4:
             rand_number = randint (0, 8)
@@ -137,13 +138,12 @@ class Game:
             print (self.gamer_one)
             print (self.gamer_two)
             answer_user = input('Зачеркнуть цифру? (y/n)').lower()
-            if (answer_user == 'y') and (small_barrel in self.gamer_one.card_row):
+            if (answer_user == 'y') and (any(small_barrel in line for line in self.gamer_one.card_row)):
                 print ('ura')
+                return 0
 
 
 card_user = Card(input('Введите ваше имя '))
 card_comp = Card('Компьютер')
 game = Game(card_user, card_comp)
-
-
 
